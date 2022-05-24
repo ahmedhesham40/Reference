@@ -1,6 +1,6 @@
 struct edge {
     int from, to, w;
-    edge(int to, int from, int w) : from(from), to(to), w(w) {}
+    edge(int from, int to, int w) : from(from), to(to), w(w) {}
     bool operator < (const edge& e)const {
         return w > e.w;
     }
