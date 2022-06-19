@@ -4,6 +4,7 @@ struct DSU
 {
     int parent[MAXNODES];
     int rank[MAXNODES];
+    int GroupSize[MAXNODES];
 
     DSU()
     {
@@ -29,7 +30,7 @@ struct DSU
         return leader1 == leader2;
     }
 
-
+    // merge by rank
     void MergeGroups(int x, int y)
     {
         int leader1 = FindLeader(x);
@@ -40,5 +41,26 @@ struct DSU
         parent[leader2] = leader1;
         if(rank[leader1] == rank[leader2])
             rank[leader1]++;
+    }
+    
+    //merge by size
+    void MergeGroups(int x, int y)
+    {
+        int leader1 = FindLeader(x);
+        int leader2 = FindLeader(y);
+
+        if(leader1 == leader2)  return;
+
+        if(GroupSize[leader1] > GroupSize[leader2])
+        {
+            parent[leader2] =  leader1;
+            GroupSize[leader1] += GroupSize[leader2];
+        }
+
+        else
+        {
+            parent[leader1] =  leader2;
+            GroupSize[leader2] += GroupSize[leader1];
+        }
     }
 };
